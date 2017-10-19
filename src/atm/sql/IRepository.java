@@ -7,7 +7,7 @@ package atm.sql;
 
 /**
  *
- * @author mkamalumpundi
+ * @author keepotalize
  */
 public interface IRepository {
     

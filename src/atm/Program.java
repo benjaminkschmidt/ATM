@@ -13,7 +13,7 @@ import java.util.TimerTask;
 
 /**
  *
- * @author mkamalumpundi
+ * @author keepotalize
  */
 public class Program {
     

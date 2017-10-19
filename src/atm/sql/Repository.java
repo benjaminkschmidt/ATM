@@ -18,7 +18,7 @@ import java.util.stream.IntStream;
  * This class contains methods to simulate an ATM by using a SQLite database
  * SQLite database can be found in /resources/ATM.db 
  * Use SQLite Studio to view the database
- * @author mkamalumpundi
+ * @author keepotalize
  */
 public class Repository implements IRepository{
 
