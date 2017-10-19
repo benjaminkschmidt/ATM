@@ -5,6 +5,9 @@
  */
 package atm.sql;
 
+import atm.exception.MissingDatabaseException;
+import atm.exception.NoCashInTheAccountException;
+import atm.exception.NoCashInTheATMException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -13,6 +16,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.NoSuchElementException;
 import java.util.stream.IntStream;
+import atm.sql.*;
 
 /**
  * This class contains methods to simulate an ATM by using a SQLite database
@@ -81,7 +85,12 @@ public class Repository implements IRepository{
     private Connection connect() throws SQLException{
         // SQLite connection string
         String uri = "jdbc:sqlite:resources/ATM.db";
-        return DriverManager.getConnection(uri);
+        try{
+            return DriverManager.getConnection(uri);
+        }catch(SQLException s){
+            throw new MissingDatabaseException();
+        }
+        
     }
 
     /**
@@ -170,14 +179,15 @@ public class Repository implements IRepository{
      * Take money out of an account and deduct current ATM balance
      * @param cash
      * @return status of withdraw process
+     * @throws NoCashInTheAccountException 
      */
     @Override
-    public boolean withdrawMoney(int cash) {
+    public boolean withdrawMoney(int cash) throws NoCashInTheAccountException, NoCashInTheATMException{
         //Check if valid withdrawl amount, replace with exception in future
         if(!(IntStream.of(WithdrawAmounts).anyMatch(x -> x == cash))) return false;
         
         //Check if user has enough money in account
-        if(cash > checkBalance()) return false;
+        if(cash > checkBalance()) throw new NoCashInTheAccountException();
         
         //Debit the ATM of the money the user will withdraw
         if(!debitATM(cash)) return false;

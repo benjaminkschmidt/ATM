@@ -5,6 +5,9 @@
  */
 package atm.sql;
 
+import atm.exception.NoCashInTheAccountException;
+import atm.exception.NoCashInTheATMException;
+
 /**
  *
  * @author keepotalize
@@ -36,6 +39,6 @@ public interface IRepository {
     boolean restockATM(int cash);
     
     //Take Option amount of money from ATM
-    boolean withdrawMoney(int cash);
+    boolean withdrawMoney(int cash) throws NoCashInTheAccountException, NoCashInTheATMException;
 
 }

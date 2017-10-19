@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package atm.sql;
+package atm.exception;
 
 /**
  * This exception when there is not enough money in the use account
